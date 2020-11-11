@@ -22,7 +22,6 @@ public class ServiceCostServiceImpl implements ServiceCostService {
     @Autowired
     private ServiceCostRepository repository;
 
-
     @Override
     public Set<ServiceCost> getAll() {
         return this.repository.findAll().stream().collect(Collectors.toSet());
