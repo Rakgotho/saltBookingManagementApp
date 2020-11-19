@@ -10,7 +10,7 @@ import com.saltsoftware.util.GenericHelper;
  */
 public class CostFactory {
 
-    public static Cost createCost(String costID, Double amount){
+    public static Cost createCost(String costID, double amount){
 
         // Utility (functional to be reused)  - generate cost ID
         //Random number generated for cost identification and Amount set
@@ -22,14 +22,6 @@ public class CostFactory {
                 .setAmount(amount)
                 .build();
         return cost;
-    }
-
-    public static Cost builCost(String costID) {
-        return null;
-    }
-
-    public static Cost buildCost(java.lang.String string, java.lang.String string1) {
-        return null;
     }
 }
 

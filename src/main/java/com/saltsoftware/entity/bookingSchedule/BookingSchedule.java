@@ -2,7 +2,6 @@ package com.saltsoftware.entity.bookingSchedule;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,12 +11,13 @@ import java.util.Objects;
  */
 
 @Entity
-public class BookingSchedule implements Serializable {
+public class BookingSchedule{
 
     @Id
     private String bookingID;
     private String bookingDate, bookingTime;
 
+    //default constructor
     protected BookingSchedule(){}
 
     //constructor
@@ -27,7 +27,7 @@ public class BookingSchedule implements Serializable {
         this.bookingTime = builder.bookingTime;
     }
 
-    //inner builder class
+    //getters
     public String getBookingID() {
         return bookingID;
     }
@@ -55,7 +55,7 @@ public class BookingSchedule implements Serializable {
     public static class Builder {
         private String bookingID, bookingDate, bookingTime;
 
-        //inner class constructor
+        //setters
         public Builder setBookingID(String bookingID) {
             this.bookingID = bookingID;
             return this;
@@ -72,7 +72,7 @@ public class BookingSchedule implements Serializable {
         }
 
 
-            //getters
+            //copy method
             public Builder copy (BookingSchedule bookingSchedule){
                 this.bookingID = bookingSchedule.bookingID;
                 this.bookingDate = bookingSchedule.bookingDate;

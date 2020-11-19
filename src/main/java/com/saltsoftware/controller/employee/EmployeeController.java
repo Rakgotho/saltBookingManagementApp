@@ -38,18 +38,17 @@ public class EmployeeController {
 
     // read method
     @GetMapping("/read/{id}")
-    public Employee read(@PathVariable String id){
-       return employeeService.read(id);
-    }
+    public Employee read(@PathVariable String id){ return employeeService.read(id); }
     //Update method
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Employee update(@RequestBody Employee employee){
        return employeeService.update(employee);
     }
     //Delete method
     @DeleteMapping("/delete/{id}")
-    public boolean delete(@PathVariable String id){
-       return employeeService.delete(id);
+    public boolean delete(@PathVariable String id){ return employeeService.delete(id);
+
+
 
     }
 

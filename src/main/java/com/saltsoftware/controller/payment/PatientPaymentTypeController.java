@@ -1,12 +1,13 @@
 package com.saltsoftware.controller.payment;
 
 
-import com.saltsoftware.entity.employee.EmployeeRole;
 import com.saltsoftware.entity.payment.PatientPaymentType;
 import com.saltsoftware.factory.payment.PatientPaymentTypeFactory;
 import com.saltsoftware.service.payment.impl.PatientPaymentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+
 
 /*
  * Created by: Heinrich Arends
@@ -49,9 +50,9 @@ public class PatientPaymentTypeController {
     }
 
     //delete
-    @DeleteMapping ("/delete ")
+    @DeleteMapping ("/delete/{id}")
     @ResponseBody
-    public void delete(@PathVariable String id){
-        paymentTypeService.delete(id);
+    public boolean delete(@PathVariable String id){
+        return paymentTypeService.delete(id);
     }
 }

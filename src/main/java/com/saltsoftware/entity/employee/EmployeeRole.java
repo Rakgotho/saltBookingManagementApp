@@ -13,12 +13,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@IdClass(EmployeeRoleId.class)
+//@IdClass(EmployeeRoleId.class)
 
 public class EmployeeRole implements Serializable {
 
     @Id
-    private String empID, roleID;
+    private String empID;
+    private String roleID;
 
        protected EmployeeRole(){}
 

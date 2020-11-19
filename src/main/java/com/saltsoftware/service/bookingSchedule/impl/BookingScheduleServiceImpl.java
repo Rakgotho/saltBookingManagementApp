@@ -18,37 +18,40 @@ import java.util.stream.Collectors;
 public class BookingScheduleServiceImpl implements BookingScheduleService {
 
 
+    //Encapsulate BookingSchedule Repo
+    private static BookingScheduleService bookingScheduleService = null;
+
     //Constructor
     @Autowired
-    private BookingScheduleRepository bookingScheduleRepository;
+    private BookingScheduleRepository repository;
 
     @Override
     public Set<BookingSchedule> getAll() {
-        return this.bookingScheduleRepository.findAll().stream().collect(Collectors.toSet());
+        return this.repository.findAll().stream().collect(Collectors.toSet());
     }
 
     @Override
     public BookingSchedule create(BookingSchedule bookingSchedule) {
-        return this.bookingScheduleRepository.save(bookingSchedule);
+        return this.repository.save(bookingSchedule);
     }
 
     @Override
     public BookingSchedule read(String s) {
-        return this.bookingScheduleRepository.findById(s).orElseGet(null);
+        return this.repository.findById(s).orElseGet(null);
     }
 
     @Override
     public BookingSchedule update(BookingSchedule bookingSchedule) {
-        if (this.bookingScheduleRepository.existsById(bookingSchedule.getBookingID())) {
-            return this.bookingScheduleRepository.save(bookingSchedule);
+        if (this.repository.existsById(bookingSchedule.getBookingID())) {
+            return this.repository.save(bookingSchedule);
         }
         return null;
     }
 
     @Override
     public boolean delete(String s) {
-        this.bookingScheduleRepository.deleteById(s);
-        if (this.bookingScheduleRepository.existsById(s)) return false;
+        this.repository.deleteById(s);
+        if (this.repository.existsById(s)) return false;
         else return true;
     }
 }

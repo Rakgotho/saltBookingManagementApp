@@ -49,8 +49,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean delete(String s) {
 
-         this.repository.deleteById(s);
-         if(this.repository.existsById(s)) return false;
-         else  return true;
+         repository.deleteById(s);
+         if(this.repository.existsById(s)){
+             return false;
+        }
+         else  {
+            return true;
+        }
     }
 }

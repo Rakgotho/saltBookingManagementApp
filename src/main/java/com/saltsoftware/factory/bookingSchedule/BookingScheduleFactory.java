@@ -12,13 +12,17 @@ import com.saltsoftware.util.GenericHelper;
 public class  BookingScheduleFactory {
     //BuildBookingSchedule with parameter
     public static BookingSchedule createBookingSchedule(String bookingDate, String bookingTime) {
+
+        //Generic helper utility to auto generate bookingID
         String bookingID = GenericHelper.generateID();
-        BookingSchedule bookingSchedule = new BookingSchedule.Builder()
+
+        //Factory method to encapsulate and build objects
+        BookingSchedule schedule = new BookingSchedule.Builder()
                 .setBookingID(bookingID)
                 .setBookingDate(bookingDate)
                 .setBookingTime(bookingTime)
                 .build();
-        return bookingSchedule;
+        return schedule;
     }
 
 

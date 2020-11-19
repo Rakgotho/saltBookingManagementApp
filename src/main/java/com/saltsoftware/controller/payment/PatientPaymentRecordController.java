@@ -1,5 +1,7 @@
 package com.saltsoftware.controller.payment;
 
+import com.saltsoftware.entity.employee.Employee;
+import com.saltsoftware.factory.employee.EmployeeFactory;
 import com.saltsoftware.service.payment.*;
 import com.saltsoftware.entity.payment.PatientPaymentRecord;
 import com.saltsoftware.factory.payment.PatientPaymentRecordFactory;
@@ -24,8 +26,8 @@ public class PatientPaymentRecordController
 
     @PostMapping("/create")
     public PatientPaymentRecord create(@RequestBody PatientPaymentRecord patientPaymentRecord){
-        PatientPaymentRecord newPatientPaymentRecord  = PatientPaymentRecordFactory.createPatientPaymentRecord(patientPaymentRecord.getPayReceiptNumber(),patientPaymentRecord.getPayDate(),patientPaymentRecord.getPayAmount());
-        return patientPaymentRecordService.create(newPatientPaymentRecord);
+        patientPaymentRecord = PatientPaymentRecordFactory.createPatientPaymentRecord(patientPaymentRecord.getPayReceiptNumber(),patientPaymentRecord.getPayDate(),patientPaymentRecord.getPayAmount());
+        return patientPaymentRecordService.create(patientPaymentRecord);
     }
 
     // get all services
@@ -35,20 +37,19 @@ public class PatientPaymentRecordController
     }
 
     // read method
-    @GetMapping("/read/{getPayReceiptNumber}")
-    public PatientPaymentRecord read(@PathVariable String getPayReceiptNumber){
-        return patientPaymentRecordService.read(getPayReceiptNumber);
-    }
+    @GetMapping("/read/{id}")
+    public PatientPaymentRecord read(@PathVariable String id){ return patientPaymentRecordService.read(id); }
+
     //Update method
-    @PostMapping("/update")
+    @PutMapping("/update")
     public PatientPaymentRecord update(@RequestBody PatientPaymentRecord patientPaymentRecord){
         return patientPaymentRecordService.update(patientPaymentRecord);
     }
     //Delete method
-    @DeleteMapping("/delete/{getPayReceiptNumber}")
-    public boolean delete(@PathVariable String getPayReceiptNumber){
-        return patientPaymentRecordService.delete(getPayReceiptNumber);
+    @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable String id){ return patientPaymentRecordService.delete(id);}
 
-    }
 
 }
+
+

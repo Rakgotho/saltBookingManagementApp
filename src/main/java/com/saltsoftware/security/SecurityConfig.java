@@ -41,129 +41,97 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/**/create", "/saltBookingManagementApp/**/delete/**").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/**/read/**","/saltBookingManagementApp/**/all").hasRole(BASIC_ROLE)
-                .and()
-                .csrf().disable();
+                //Abduragmaan Frank 217009069
+                .antMatchers(HttpMethod.POST, "/employee/create").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.PUT, "/employee/**/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.GET, "/employee/read").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.GET, "/employee/all").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/employee/delete").hasRole(SUPER_ROLE)
 
-        //Heinrich Arends 217166792 PatientPaymentController Authorization on endpoints
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/paymenttype/create").hasAuthority(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST,"/saltBookingManagementApp/paymenttype/update").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.DELETE,"/saltBookingManagementApp/paymenttype/delete").hasAuthority(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/paymenttype/read").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/paymenttype/**/all").hasRole(BASIC_ROLE)
-                .and()
-                .csrf().disable();
 
-        //Bathi Ntshinga 214198227 Authorization setting for Patient Controller
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
+                //Noluthando Nqwelo 215029003 Role endpoint authorization on endpoints
+
+                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/role/create").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/role/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/role/read").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/role/all").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/saltBookingManagementApp/role/delete").hasRole(SUPER_ROLE)
+
+
+                //Sakeena Francis 215006097 EmployeeRoleController Authorization on endpoints
+
+                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/employeeRole/create").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/employeeRole/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/employeeRole/read").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/employeeRole/all").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/saltBookingManagementApp/employeeRole/delete").hasRole(SUPER_ROLE)
+
+
+                //Heinrich Arends 217166792 PatientPaymentController Authorization on endpoints
+
+                .antMatchers(HttpMethod.POST, "/paymenttype/create").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.PUT,"/paymenttype/**/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.DELETE,"/paymenttype/delete").hasAuthority(SUPER_ROLE)
+                .antMatchers(HttpMethod.GET, "/paymenttype/read").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.GET, "/paymenttype/**/all").hasRole(BASIC_ROLE)
+
+
+                //Bathi Ntshinga 214198227 Authorization setting for Patient Controller
+
                 .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/patient/create").hasAuthority(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST,"/saltBookingManagementApp/patient/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.PUT,"/saltBookingManagementApp/patient/update").hasRole(SUPER_ROLE)
                 .antMatchers(HttpMethod.DELETE,"/saltBookingManagementApp/patient/delete").hasAuthority(SUPER_ROLE)
                 .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/patient/read").hasRole(BASIC_ROLE)
                 .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/patient/**/all").hasRole(BASIC_ROLE)
-                .and()
-                .csrf().disable();
 
-        //Junade Frizlar 208046402 CostController Authorization on endpoints
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
+
+                //Junade Frizlar 208046402 CostController Authorization on endpoints
+
                 .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/cost/create").hasAuthority(SUPER_ROLE)
                 .antMatchers(HttpMethod.POST,"/saltBookingManagementApp/cost/update").hasRole(SUPER_ROLE)
                 .antMatchers(HttpMethod.DELETE,"/saltBookingManagementApp/cost/delete").hasAuthority(SUPER_ROLE)
                 .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/cost/read").hasRole(BASIC_ROLE)
                 .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/cost/**/all").hasRole(BASIC_ROLE)
-                .and()
-                .csrf().disable();
 
-        //Abram Rakgotho 215031393 configuring endpoint
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
+
+                //Letsoha Lebusa 216059186 securing the ServiceCostController endpoints based on the level of access given to a user in the database
+
+                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/servicecost/create").hasAuthority(SUPER_ROLE)
+                .antMatchers(HttpMethod.POST,"/saltBookingManagementApp/servicecost/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.DELETE,"/saltBookingManagementApp/servicecost/delete").hasAuthority(SUPER_ROLE)
+                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/servicecost/read").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/servicecost/**/all").hasRole(BASIC_ROLE)
+
+
+                //Linton Appollis 216182484 Setting Authorization For Patient Payment Record (11-01-2020)
+
+                .antMatchers(HttpMethod.POST, "/paymentrecord/create").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.PUT, "/paymentrecord/**/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.GET, "/paymentrecord/read").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.GET, "/paymentrecord/all").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/paymentrecord/delete").hasRole(SUPER_ROLE)
+
+
+                //Craig Carr 204111307 BookingScheduleController Authorization on endpoints
+
+                .antMatchers(HttpMethod.POST, "/bookingschedule/create").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.PUT,"/bookingschedule/**/update").hasRole(SUPER_ROLE)
+                .antMatchers(HttpMethod.GET, "/bookingschedule/read").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.GET, "/bookingschedule/**/all").hasRole(BASIC_ROLE)
+                .antMatchers(HttpMethod.DELETE,"/bookingschedule/delete").hasRole(SUPER_ROLE)
+
+
+                //Abram Rakgotho 215031393 configuring endpoint
+
                 .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/service/create").hasRole(SUPER_ROLE)
                 .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/service/update").hasRole(SUPER_ROLE)
                 .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/service/read").hasRole(BASIC_ROLE)
                 .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/service/**all**").hasRole(BASIC_ROLE)
                 .antMatchers(HttpMethod.DELETE, "/saltBookingManagementApp/service/delete").hasRole(SUPER_ROLE)
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .formLogin().disable();
 
-        //Craig Carr 204111307 BookingScheduleController Authorization on endpoints
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/bookingschedule/create").hasAuthority(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST,"/saltBookingManagementApp/bookingschedule/update").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.DELETE,"/saltBookingManagementApp/bookingschedule/delete").hasAuthority(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/bookingschedule/read").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/bookingschedule/**/all").hasRole(BASIC_ROLE)
-                .and()
-                .csrf().disable();
-
-        //Sakeena Francis 215006097 EmployeeRoleController Authorization on endpoints
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/employeeRole/create").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/employeeRole/update").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/employeeRole/read").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/employeeRole/**all**").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.DELETE, "/saltBookingManagementApp/employeeRole/delete").hasRole(SUPER_ROLE)
-                .and()
-                .csrf().disable();
-
-        //Noluthando Nqwelo 215029003 Role endpoint authorization on endpoints
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/role/create").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/role/update").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/role/read").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/role/**all**").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.DELETE, "/saltBookingManagementApp/role/delete").hasRole(SUPER_ROLE)
-                .and()
-                .csrf().disable();
-
-        //Linton Appollis 216182484 Setting Authorization For Patient Payment Record (11-01-2020)
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/salt/create").hasAuthority(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST,"/saltBookingManagementApp/salt/update").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.DELETE,"/saltBookingManagementApp/salt/delete").hasAuthority(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/salt/read").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/salt/**/all").hasRole(BASIC_ROLE)
-                .and()
-                .csrf().disable();
-        //Abduragmaan Frank Employee endpoint security
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/employee/create").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/employee/update").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/employee/read").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/employee/all").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.DELETE, "/saltBookingManagementApp/employee/delete").hasRole(SUPER_ROLE)
-                .and()
-                .csrf().disable();
-
-        //Letsoha Lebusa 216059186 securing the ServiceCostController endpoints based on the level of access given to a user in the database
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/servicecost/create").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.POST, "/saltBookingManagementApp/servicecost/update").hasRole(SUPER_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/servicecost/read").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.GET, "/saltBookingManagementApp/servicecost/**all**").hasRole(BASIC_ROLE)
-                .antMatchers(HttpMethod.DELETE, "/saltBookingManagementApp/servicecost/delete").hasRole(SUPER_ROLE)
-                .and()
-                .csrf().disable();
     }
 
     @Bean

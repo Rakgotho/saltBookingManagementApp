@@ -1,11 +1,12 @@
 package com.saltsoftware.controller.dentalService;
 
 import com.saltsoftware.entity.dentalService.Cost;
-import com.saltsoftware.entity.dentalService.ServiceCost;
+import com.saltsoftware.entity.payment.PatientPaymentType;
 import com.saltsoftware.factory.dentalService.CostFactory;
-import com.saltsoftware.factory.dentalService.ServiceCostFactory;
+import com.saltsoftware.factory.payment.PatientPaymentTypeFactory;
 import com.saltsoftware.service.dentalService.CostService;
-import com.saltsoftware.service.dentalService.ServiceCostService;
+import com.saltsoftware.service.dentalService.impl.CostServiceImpl;
+import com.saltsoftware.service.payment.impl.PatientPaymentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,22 +22,18 @@ import java.util.Set;
  */
 
 @RestController
-@RequestMapping("/serviceCost")
+@RequestMapping("/cost")
 public class CostController {
-    @Autowired //This handles every related Cost operations
+    //injecting the constructor, calling cost type service
+    @Autowired
 
-    private CostService costService;
+    private CostServiceImpl costService;
 
-    //@RequestMapping("/create")
+
     @PostMapping("/create")
     public Cost create(@RequestBody Cost cost){
-        boolean costIdExist = false;
-
-
-        System.out.println(cost.getCostID());
-
-        Cost newCost = CostFactory.builCost(cost.getCostID());
-        return costService.create(cost);
+        Cost newCost = CostFactory.createCost(cost.getCostID(), cost.getAmount());
+        return costService.create(newCost);
     }
 
     //read
@@ -48,7 +45,7 @@ public class CostController {
 
     //getall
     @GetMapping("/all")
-    public Set<Cost> getall(){
+    public Set<Cost> getAll(){
         return costService.getAll();
     }
 

@@ -5,6 +5,8 @@ package com.saltsoftware.entity.dentalService;
  * */
 
 
+import com.saltsoftware.entity.payment.PatientPaymentType;
+
 import javax.persistence.Id;
 
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.Entity;
 @Entity
 public class Cost {
 
+    //required parameters
     @Id
     private String costID;
     private double amount;
@@ -19,6 +22,7 @@ public class Cost {
     //Default Constructor
     protected Cost(){}
 
+    //getters
     public String getCostID() {
         return costID;
     }
@@ -34,17 +38,14 @@ public class Cost {
                 ", amount=" + amount +
                 '}';
     }
-
-    private Cost(Builder builder) {
+    //constructor
+    private Cost(Cost.Builder builder) {
         this.costID = builder.costID;
         this.amount = builder.amount;
 
 
     }
 
-    public Object getCostID(Cost cost) {
-        return null;
-    }
 
     public static class Builder{
 
