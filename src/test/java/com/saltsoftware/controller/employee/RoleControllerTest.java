@@ -14,7 +14,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.Assert.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /* @author - Noluthando Nqwelo
@@ -26,21 +28,23 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class RoleControllerTest {
+
     private static Role role = RoleFactory.createRole("Reception");
+
+
+    private static String SECURITY_USERNAME = "SUPER";
+    private static String SECURITY_PASSWORD = "5555";
+
 
     @Autowired
     private TestRestTemplate restTemplate;
     private String baseURL = "http://localhost:8080/role/";
 
 
-    private static String SECURITY_USERNAME = "root";
-    private static String SECURITY_PASSWORD = "password";
-
 
     // creating role
     @Test
     public void a_create() {
-        Role role = RoleFactory.createRole("Reception");
         String url = baseURL + "create";
         System.out.println("Created " + role);
         ResponseEntity<Role> postForEntity = restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
@@ -67,19 +71,23 @@ public class RoleControllerTest {
     public void c_update() {
         Role updated = new Role.Builder().copy(role).setRoleDesc("Receptionist").build();
         String url = baseURL + "update";
-        ResponseEntity<Role> responseEntity = restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD)
-        .postForEntity(url,updated, Role.class);
+        ResponseEntity<Role> responseEntity =
+                restTemplate
+                        .withBasicAuth(SECURITY_USERNAME,SECURITY_PASSWORD)
+                        .postForEntity(url,updated,Role.class);
         assertNotNull(responseEntity);
         assertNotNull(updated);
         System.out.println("updated " + updated);
+
+
     }
 
     //deleting the role
     @Test
     public void e_delete() {
-        String url = baseURL + "delete";
+        String url = baseURL + "delete"+role.getRoleID();
         System.out.println("deleted " + role);
-        restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).delete(role.getRoleID());
+        restTemplate.withBasicAuth(SECURITY_USERNAME, SECURITY_PASSWORD).delete(url);
     }
 
     @Test

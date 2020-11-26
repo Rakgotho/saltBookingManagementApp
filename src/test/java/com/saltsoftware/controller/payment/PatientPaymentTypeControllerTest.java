@@ -27,7 +27,7 @@ public class PatientPaymentTypeControllerTest {
     private static String SECURITY_PASSWORD = "5555";
 
     @Autowired
-    private TestRestTemplate restTemplate;
+    private TestRestTemplate restTemplate = null;
     private String baseURL = "http://localhost:8989/paymenttype/";
 
     //Test case for create method
@@ -44,6 +44,7 @@ public class PatientPaymentTypeControllerTest {
         paymentTypeService = postResponse.getBody();
         System.out.println("Saved data: "+ paymentTypeService);
         assertEquals(paymentTypeService.getPaymentTypeID(), postResponse.getBody().getPaymentTypeID());
+
 
     }
 

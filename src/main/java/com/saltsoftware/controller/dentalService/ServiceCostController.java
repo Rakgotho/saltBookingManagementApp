@@ -9,7 +9,6 @@ import com.saltsoftware.service.dentalService.impl.CostServiceImpl;
 import com.saltsoftware.service.dentalService.impl.ServiceCostServiceImpl;
 import com.saltsoftware.service.dentalService.impl.ServiceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.bind.annotation.*;
 
 /*
@@ -23,20 +22,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/servicecost")
+@RequestMapping("/saltBookingManagementApp/servicecost")
 public class ServiceCostController {
-    @MockBean
+
     private ServiceCostServiceImpl serviceCostService;
 
-    //This handles everyt related serviceCost operations
+    //This handles related serviceCost operations
     @Autowired
-    private ServiceCostServiceImpl service;
+    private CostServiceImpl costService;
 
     @Autowired
     private ServiceServiceImpl serviceService;
-
-    @Autowired
-    private CostServiceImpl costService;
 
     @PostMapping("/create")
     public ServiceCost create(@RequestBody ServiceCost serviceCost){
@@ -56,7 +52,7 @@ public class ServiceCostController {
 
         if (costExist && serviceExist)
             return serviceCostService.create(serviceCost);
-        else return ServiceCostFactory.buildServiceCost("", "");
+        else return ServiceCostFactory.buildServiceCost("Service_ID", "Cost_ID");
     }
 
     //read
