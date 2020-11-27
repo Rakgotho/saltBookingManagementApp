@@ -2,6 +2,7 @@ package com.saltsoftware.controller.dentalService;
 
 import com.saltsoftware.entity.dentalService.Service;
 import com.saltsoftware.factory.dentalService.ServiceFactory;
+import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,25 +42,33 @@ public class ServiceControllerTest {
     @Test
     public void a_create()
     {
-        Service service = ServiceFactory.createService("Dentist", "Teeth alignment");
+
         String url = baseURL + "create";
         System.out.println("URL: " + url);
+        System.out.println("Post data "+ service);
         ResponseEntity<Service> postResponse = restTemp.withBasicAuth(USERNAME, PASSWORD)
                 .postForEntity(url, service, Service.class);
         assertNotNull(postResponse);
-        assertNotNull(postResponse.getBody());
-        System.out.println(postResponse.getBody());
+        Assert.assertEquals(service.getServiceName(),postResponse.getBody().getServiceName());
+        service = postResponse.getBody();
+        System.out.println("Saved data: "+service);
+        System.out.println(postResponse);
+
     }
     @Test
     public void b_read()
     {
 
-        String url = baseURL + "read" + service.getServiceId();
+        String url = baseURL + "read/" + service.getServiceId();
+        System.out.println("URL "+ url);
         System.out.println("read  " + service);
-        ResponseEntity<Service> res = restTemp.withBasicAuth(USERNAME, PASSWORD)
-                .getForEntity(url,Service.class);
-        assertNotNull(res);
-        assertNotNull(res.getBody());
+        restTemp
+                .withBasicAuth(USERNAME,PASSWORD)
+                .getRestTemplate()
+                .getForObject(url +"/service", Service.class);
+        System.out.println(service.getServiceName());
+        Assert.assertNotNull(service);
+
 
         /*Service service = restTemp.withBasicAuth("service","service")//just creating a basic authentication
                 .getForObject(url + "/service", Service.class);
@@ -93,8 +102,12 @@ public class ServiceControllerTest {
         ResponseEntity<String> response = restTemp
                 .withBasicAuth(USERNAME,PASSWORD).exchange(url,
                 HttpMethod.GET, entity, String.class);
-        assertNotNull(response.getBody());
+
         System.out.println(response.getBody());
+        Assert.assertNotNull(response);
+
+
+
 
 
     }
